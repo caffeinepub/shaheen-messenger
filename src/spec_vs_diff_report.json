@@ -1,0 +1,86 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-05T08:59:35.011Z",
+  "summary": "The diff implements Internet Identity-based auth UI, a two-pane messenger UI with polling-based refresh via React Query, message sending, and some backend models/APIs. However, backend persistence across upgrades/refresh and some UI/asset requirements are not fully evidenced, and a few unrequested features (access-control admin token, profile setup) are added.",
+  "missing_requirements": [
+    {
+      "id": "REQ-2",
+      "requirement": "Create backend data models and persistent storage for users, 1:1 conversations, and messages; data persists across page refreshes.",
+      "reason": "The backend stores data in in-memory Maps (e.g., `let conversations = Map.empty...`, `let messages = Map.empty...`) with `var nextConversationId` counters, but there is no evidence of `stable` variables or upgrade hooks to persist data across canister upgrades/redeploys. The requirement/AC explicitly call for persistence across refreshes; this diff summary does not show stable persistence mechanisms.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Provide automatic periodic refresh of the message thread and conversation list and a manual refresh control.",
+      "reason": "Polling is implemented for both conversations and messages via `refetchInterval`, and there is a manual refresh button for the message thread (`ConversationHeader` calls `refetch`). There is no evidence of a manual refresh control for the conversation list/inbox itself.",
+      "evidence": [
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/components/messenger/ConversationHeader.tsx",
+        "frontend/src/components/messenger/ConversationList.tsx"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Add generated static image assets under `frontend/public/assets/generated` including logo and required illustrations/banners, and render them in the UI.",
+      "reason": "The UI references the logo and empty-state illustration paths, but the diff summary does not show the actual generated image files being added under `frontend/public/assets/generated`, nor any usage of the required wide header/hero banner image. Because omitted files are not visible and no banner usage is shown, this requirement is not fully evidenced.",
+      "evidence": [
+        "frontend/src/components/auth/SignedOutScreen.tsx",
+        "frontend/src/components/layout/AppShell.tsx",
+        "frontend/src/components/messenger/EmptyStates.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Admin/permissioned access-control system with secret-token initialization (`_initializeAccessControlWithSecret`, `caffeineAdminToken`, `AccessControl`/`MixinAuthorization`).",
+      "reason": "The BuildRequest does not ask for admin tokens, role-based access control, or secret URL parameters. It only requires Internet Identity auth and messaging storage/APIs.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "Mandatory user profile creation step (display name setup) before using the messenger.",
+      "reason": "The BuildRequest does not require user profiles or a profile setup flow; it requires showing user identity (principal or derived label).",
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/ProfileSetupDialog.tsx",
+        "frontend/src/hooks/useCurrentUser.ts",
+        "backend/main.mo"
+      ]
+    }
+  ],
+  "confidence": 0.67,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/ProfileSetupDialog.tsx",
+    "frontend/src/components/auth/SignedOutScreen.tsx",
+    "frontend/src/components/auth/UserIdentityBadge.tsx",
+    "frontend/src/components/layout/AppShell.tsx",
+    "frontend/src/components/messenger/ConversationHeader.tsx",
+    "frontend/src/components/messenger/ConversationList.tsx",
+    "frontend/src/components/messenger/EmptyStates.tsx",
+    "frontend/src/components/messenger/MessageComposer.tsx",
+    "frontend/src/components/messenger/MessagePane.tsx",
+    "frontend/src/components/messenger/MessageThread.tsx",
+    "frontend/src/components/messenger/MessengerShell.tsx",
+    "frontend/src/components/messenger/NewChatForm.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useCurrentUser.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

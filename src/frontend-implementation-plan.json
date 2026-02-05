@@ -1,0 +1,228 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Shaheen Messenger (WhatsApp-like 1:1 messaging) — Frontend Plan",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Add Internet Identity sign-in, session handling, and clear signed-in vs signed-out UI (with sign-out) using English text.",
+      "acceptanceCriteria": [
+        "A signed-out user sees a clear prompt/button to sign in with Internet Identity",
+        "A signed-in user can sign out",
+        "The signed-in user identity is shown in the UI (e.g., principal or derived display label)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the root app component that reads authentication state from the Internet Identity hook and renders either a signed-out login view or the authenticated messenger shell; ensure all user-facing text is English. Use the selected component \"authorization\" frontend guidance for login/logout behavior and caching (Verify the component's usage instructions before implementing)."
+        },
+        {
+          "path": "frontend/src/components/auth/AuthActions.tsx",
+          "operation": "create",
+          "description": "Add an auth actions component that shows a clear 'Sign in with Internet Identity' action when signed out and a 'Sign out' action when signed in; on sign-out, clear React Query cached data. Use the selected component \"authorization\" guidance for logout cache clearing (Verify the component's usage instructions before implementing)."
+        },
+        {
+          "path": "frontend/src/components/auth/UserIdentityBadge.tsx",
+          "operation": "create",
+          "description": "Add a small UI element that shows the signed-in user's identity label (prefer profile name; also show a shortened principal for transparency) and is visible in the authenticated UI. Use the selected component \"authorization\" profile guidance to avoid relying only on principal (Verify the component's usage instructions before implementing)."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupDialog.tsx",
+          "operation": "create",
+          "description": "Create a first-login profile setup dialog that prompts for a display name and saves it; ensure it only appears after authentication and after the profile query is fetched to avoid modal flash. Use the selected component \"authorization\" profile setup flow and loading-state guidance (Verify the component's usage instructions before implementing)."
+        },
+        {
+          "path": "frontend/src/hooks/useCurrentUser.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for fetching the current user profile and saving it, implementing the recommended pattern that prevents the profile setup modal flash when actor identity is still initializing. Use the selected component \"authorization\" React Query example patterns (Verify the component's usage instructions before implementing)."
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "operation": "modify",
+          "description": "Ensure the QueryClient is configured for the app (keep English-only UI) and that auth provider + QueryClient provider composition supports clearing cached data on logout through the UI actions."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Implement conversation management UI: start new 1:1 chat by entering another user's principal/user id, and show an inbox list with last message preview and last activity time; selecting opens the thread.",
+      "acceptanceCriteria": [
+        "User can create a new 1:1 conversation with another user identifier",
+        "Conversation list displays all conversations the signed-in user participates in",
+        "Selecting a conversation opens its message thread"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useConversations.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for loading the signed-in user's conversation previews and creating/opening a 1:1 conversation by other user's principal/user id; integrate with the existing actor hook and handle authorization errors with English messages."
+        },
+        {
+          "path": "frontend/src/components/messenger/ConversationList.tsx",
+          "operation": "create",
+          "description": "Create the left sidebar conversation list UI showing conversation previews (last message preview + last activity time) with loading/empty/error states in English; allow selecting a conversation to open it."
+        },
+        {
+          "path": "frontend/src/components/messenger/NewChatForm.tsx",
+          "operation": "create",
+          "description": "Create a 'New chat' UI that accepts another user's principal/user id, validates input, triggers get-or-create conversation, and selects the resulting conversation; show inline errors in English."
+        },
+        {
+          "path": "frontend/src/components/messenger/MessengerShell.tsx",
+          "operation": "create",
+          "description": "Create the authenticated two-pane messenger shell container that wires the sidebar (conversation list + new chat) to the currently selected conversation state and passes selection into the message pane."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the authenticated app flow to render MessengerShell after sign-in (and after initial profile setup flow is resolved), ensuring conversations are not shown to signed-out users."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement 1:1 messaging UI: load message history, send text messages, and refresh via polling and manual refresh (no sockets).",
+      "acceptanceCriteria": [
+        "User can send a text message and it appears in the thread with correct author attribution and timestamp",
+        "Message history loads when opening a conversation",
+        "Messages and the conversation list update via periodic refresh without requiring a full page reload",
+        "A manual refresh action is available"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useMessages.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for loading messages for a selected conversation and sending a message mutation; include refetch/polling configuration for periodic refresh and expose manual refresh triggers; ensure all errors are shown in English."
+        },
+        {
+          "path": "frontend/src/components/messenger/ConversationHeader.tsx",
+          "operation": "create",
+          "description": "Create the right-pane header that shows the selected conversation context and provides a manual 'Refresh' control that refetches both message history and the conversation list; display last updated/loading state in English."
+        },
+        {
+          "path": "frontend/src/components/messenger/MessageThread.tsx",
+          "operation": "create",
+          "description": "Create the message list UI that renders message history, including author attribution (different styling for own messages vs other user) and timestamps; include loading/empty/error states in English."
+        },
+        {
+          "path": "frontend/src/components/messenger/MessageComposer.tsx",
+          "operation": "create",
+          "description": "Create a message composer with a text input and send action; disable send while mutation is in-flight; validate non-empty text; show errors in English."
+        },
+        {
+          "path": "frontend/src/components/messenger/MessagePane.tsx",
+          "operation": "create",
+          "description": "Create the right-pane container that composes ConversationHeader + MessageThread + MessageComposer and wires them to the selected conversation id, including polling behavior and manual refresh integration."
+        },
+        {
+          "path": "frontend/src/components/messenger/MessengerShell.tsx",
+          "operation": "modify",
+          "description": "Wire the selected conversation state to render MessagePane and ensure polling/refresh behavior updates both conversation previews and the active thread without full page reload."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Build the core messenger UI layout (sidebar + message pane) using React Query for fetching/mutations with English loading/empty/error states.",
+      "acceptanceCriteria": [
+        "App has a two-pane layout (conversations sidebar + message pane)",
+        "Loading and error states are clearly displayed",
+        "Empty states exist for: no conversations yet, no messages yet, no conversation selected"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/messenger/EmptyStates.tsx",
+          "operation": "create",
+          "description": "Add reusable empty-state UI for: no conversation selected, no conversations yet, and no messages yet; keep all user-facing text in English."
+        },
+        {
+          "path": "frontend/src/components/messenger/MessengerShell.tsx",
+          "operation": "modify",
+          "description": "Ensure the layout is a consistent two-pane design: left sidebar (conversation list + new chat) and right pane (header + thread + composer), and that each pane has appropriate loading/error/empty rendering."
+        },
+        {
+          "path": "frontend/src/components/ui-bridge/ShadcnPrimitives.tsx",
+          "operation": "create",
+          "description": "Create a thin composition layer that imports and re-exports needed shadcn/ui components (e.g., Button, Input, Dialog, ScrollArea) without modifying any files under frontend/src/components/ui; use these primitives throughout the messenger UI. Use the selected component \"shadcn-ui\" for consistent component styling (Verify the component's usage instructions before implementing)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Apply a cohesive Shaheen Messenger visual theme across auth, conversation list, and chat thread views (non-blue/purple primary palette).",
+      "acceptanceCriteria": [
+        "Theme is applied consistently across main screens and components",
+        "Primary color scheme is not blue/purple"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create the global stylesheet referenced by main.tsx and define the app theme via CSS variables used by Tailwind/shadcn (warm charcoal + sand primary palette; avoid blue/purple); apply consistent typography, spacing, and surface styles for the messenger layout."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust theme extensions only as needed to support the warm neutral palette and consistent UI styling across auth and messenger screens (ensure primary is not blue/purple)."
+        },
+        {
+          "path": "frontend/src/components/layout/AppShell.tsx",
+          "operation": "create",
+          "description": "Create a consistent app shell layout (header + main content) that applies the theme across signed-out and signed-in views, including spacing and background surfaces."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap signed-out and signed-in screens in the AppShell to enforce consistent branding and theming across authentication, conversation list, and chat thread views."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add required generated static image assets and render them in the UI (logo and at least one empty-state illustration).",
+      "acceptanceCriteria": [
+        "Generated images exist under frontend/public/assets/generated",
+        "Logo is visible in the app shell/header and/or login screen",
+        "Illustration is displayed on at least one empty state (e.g., no conversation selected)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/shaheen-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated app logo image asset at the required path so it can be rendered by the UI."
+        },
+        {
+          "path": "frontend/public/assets/generated/shaheen-banner.dim_1600x400.png",
+          "operation": "create",
+          "description": "Add the generated wide banner image asset at the required path for use in the app shell header/branding areas."
+        },
+        {
+          "path": "frontend/public/assets/generated/shaheen-empty-state.dim_800x600.png",
+          "operation": "create",
+          "description": "Add the generated empty-state illustration asset at the required path for use in an empty state view."
+        },
+        {
+          "path": "frontend/src/components/layout/AppShell.tsx",
+          "operation": "modify",
+          "description": "Render the logo from frontend/public/assets/generated/shaheen-logo.dim_512x512.png and optionally the banner from frontend/public/assets/generated/shaheen-banner.dim_1600x400.png within the app shell/header; keep all user-facing text in English."
+        },
+        {
+          "path": "frontend/src/components/messenger/EmptyStates.tsx",
+          "operation": "modify",
+          "description": "Render the empty-state illustration from frontend/public/assets/generated/shaheen-empty-state.dim_800x600.png in at least the 'no conversation selected' empty state (and/or 'no conversations yet'), ensuring it appears in the UI with English supporting text."
+        },
+        {
+          "path": "frontend/src/components/auth/SignedOutScreen.tsx",
+          "operation": "create",
+          "description": "Create a signed-out screen that includes the Shaheen logo (frontend/public/assets/generated/shaheen-logo.dim_512x512.png) and a clear Internet Identity sign-in prompt in English; integrate with the auth actions component. Use the selected component \"authorization\" login UX guidance (Verify the component's usage instructions before implementing)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire SignedOutScreen into the signed-out state rendering so the logo and sign-in prompt are visible before authentication."
+        }
+      ]
+    }
+  ]
+}

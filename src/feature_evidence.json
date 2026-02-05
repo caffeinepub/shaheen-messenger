@@ -1,0 +1,137 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-internet-identity-sign-in-and-session-handling-so-users-can-authenticate-to-shaheen-messenger-and-the-ui-clearly-reflects-signed-in-vs-signed-out-state-including-a-sign-out-action-use-english-for-all-user-facing-text",
+      "featureTitle": "Implement Internet Identity sign-in and session handling so users can authenticate to Shaheen Messenger and the UI clearly reflects signed-in vs signed-out state (including a sign-out action). Use English for all user-facing text.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/ProfileSetupDialog.tsx",
+        "frontend/src/components/auth/UserIdentityBadge.tsx",
+        "frontend/src/hooks/useCurrentUser.ts",
+        "frontend/src/main.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-conversation-chat-management-allow-a-signed-in-user-to-start-a-new-1-1-chat-by-entering-another-user-s-principal-or-an-app-specific-user-identifier-derived-from-principal-and-show-a-conversation-list-inbox-of-existing-chats-with-last-message-preview-and-last-activity-time",
+      "featureTitle": "Implement conversation (chat) management: allow a signed-in user to start a new 1:1 chat by entering another user's principal (or an app-specific user identifier derived from principal), and show a conversation list (inbox) of existing chats with last message preview and last activity time.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/messenger/ConversationList.tsx",
+        "frontend/src/components/messenger/MessengerShell.tsx",
+        "frontend/src/components/messenger/NewChatForm.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-1-1-messaging-in-a-selected-conversation-allow-the-signed-in-user-to-send-text-messages-and-load-message-history-provide-automatic-periodic-refresh-of-the-message-thread-and-conversation-list-since-real-time-sockets-are-not-available-and-a-manual-refresh-control",
+      "featureTitle": "Implement 1:1 messaging: in a selected conversation, allow the signed-in user to send text messages and load message history. Provide automatic periodic refresh of the message thread and conversation list (since real-time sockets are not available) and a manual refresh control.",
+      "files": [
+        "frontend/src/components/messenger/ConversationHeader.tsx",
+        "frontend/src/components/messenger/MessageComposer.tsx",
+        "frontend/src/components/messenger/MessagePane.tsx",
+        "frontend/src/components/messenger/MessageThread.tsx",
+        "frontend/src/components/messenger/MessengerShell.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-core-ui-layout-similar-to-a-simple-messenger-left-sidebar-with-conversation-list-new-chat-action-right-pane-with-conversation-header-message-list-and-message-composer-use-react-query-for-fetching-mutations-and-show-loading-empty-error-states-in-english",
+      "featureTitle": "Add core UI layout similar to a simple messenger: left sidebar with conversation list + new chat action, right pane with conversation header, message list, and message composer. Use React Query for fetching/mutations and show loading/empty/error states in English.",
+      "files": [
+        "frontend/src/components/messenger/EmptyStates.tsx",
+        "frontend/src/components/messenger/MessengerShell.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-coherent-distinctive-visual-theme-for-shaheen-messenger-colors-typography-spacing-component-styling-and-enforce-it-consistently-across-authentication-conversation-list-and-chat-thread-views-do-not-use-a-blue-purple-primary-palette",
+      "featureTitle": "Apply a coherent, distinctive visual theme for Shaheen Messenger (colors, typography, spacing, component styling) and enforce it consistently across authentication, conversation list, and chat thread views. Do not use a blue/purple primary palette.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppShell.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-generated-static-image-assets-for-shaheen-messenger-and-render-them-in-the-ui-from-frontend-public-assets-generated-including-an-app-logo-and-a-simple-login-empty-state-illustration",
+      "featureTitle": "Add generated static image assets for Shaheen Messenger and render them in the UI (from frontend/public/assets/generated), including an app logo and a simple login/empty-state illustration.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/SignedOutScreen.tsx",
+        "frontend/src/components/layout/AppShell.tsx",
+        "frontend/src/components/messenger/EmptyStates.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

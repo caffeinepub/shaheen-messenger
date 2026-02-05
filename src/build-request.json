@@ -1,0 +1,165 @@
+{
+  "kind": "build_request",
+  "title": "Build Shaheen Messenger (WhatsApp-like 1:1 messaging app)",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Implement Internet Identity sign-in and session handling so users can authenticate to Shaheen Messenger and the UI clearly reflects signed-in vs signed-out state (including a sign-out action). Use English for all user-facing text.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-2"
+        ],
+        "quotes": [
+          "Create An App Like WhatsApp Named Shaheen Messenger",
+          "I’ll build a simple messaging app where users can sign in, send messages, and manage chats."
+        ]
+      },
+      "acceptanceCriteria": [
+        "A signed-out user sees a clear prompt/button to sign in with Internet Identity",
+        "A signed-in user can sign out",
+        "The signed-in user identity is shown in the UI (e.g., principal or derived display label)"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Create backend data models and persistent storage for a WhatsApp-like 1:1 messenger: users (keyed by principal), conversations (between exactly two participants), and messages (author, timestamp, text, conversation id).",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-2"
+        ],
+        "quotes": [
+          "Create An App Like WhatsApp Named Shaheen Messenger",
+          "send messages, and manage chats"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend can store and retrieve a conversation list for the authenticated user",
+        "Backend can store and retrieve message history for a selected conversation",
+        "Data persists across page refreshes"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Implement conversation (chat) management: allow a signed-in user to start a new 1:1 chat by entering another user's principal (or an app-specific user identifier derived from principal), and show a conversation list (inbox) of existing chats with last message preview and last activity time.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-2"
+        ],
+        "quotes": [
+          "Create An App Like WhatsApp Named Shaheen Messenger",
+          "manage chats"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can create a new 1:1 conversation with another user identifier",
+        "Conversation list displays all conversations the signed-in user participates in",
+        "Selecting a conversation opens its message thread"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement 1:1 messaging: in a selected conversation, allow the signed-in user to send text messages and load message history. Provide automatic periodic refresh of the message thread and conversation list (since real-time sockets are not available) and a manual refresh control.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-2"
+        ],
+        "quotes": [
+          "Create An App Like WhatsApp Named Shaheen Messenger",
+          "send messages"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can send a text message and it appears in the thread with correct author attribution and timestamp",
+        "Message history loads when opening a conversation",
+        "Messages and the conversation list update via periodic refresh without requiring a full page reload",
+        "A manual refresh action is available"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add core UI layout similar to a simple messenger: left sidebar with conversation list + new chat action, right pane with conversation header, message list, and message composer. Use React Query for fetching/mutations and show loading/empty/error states in English.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-2"
+        ],
+        "quotes": [
+          "Create An App Like WhatsApp Named Shaheen Messenger",
+          "simple messaging app"
+        ]
+      },
+      "acceptanceCriteria": [
+        "App has a two-pane layout (conversations sidebar + message pane)",
+        "Loading and error states are clearly displayed",
+        "Empty states exist for: no conversations yet, no messages yet, no conversation selected"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Apply a coherent, distinctive visual theme for Shaheen Messenger (colors, typography, spacing, component styling) and enforce it consistently across authentication, conversation list, and chat thread views. Do not use a blue/purple primary palette.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create An App Like WhatsApp Named Shaheen Messenger"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Theme is applied consistently across main screens and components",
+        "Primary color scheme is not blue/purple"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add generated static image assets for Shaheen Messenger and render them in the UI (from frontend/public/assets/generated), including an app logo and a simple login/empty-state illustration.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create An App Like WhatsApp Named Shaheen Messenger"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images exist under frontend/public/assets/generated",
+        "Logo is visible in the app shell/header and/or login screen",
+        "Illustration is displayed on at least one empty state (e.g., no conversation selected)"
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor in backend/main.mo.",
+    "Do not modify any files under frontend/src/components/ui or other immutable paths listed in SYSTEM_CONTEXT; compose them instead.",
+    "Do not implement WebSockets or socket-based real-time chat; use polling/refresh-based updates instead.",
+    "Use English for all user-facing text."
+  ],
+  "nonGoals": [
+    "Group chats and broadcast lists",
+    "Voice/video calls",
+    "Media attachments (images, audio, files) and stickers",
+    "Message deletion/editing, read receipts, typing indicators, or online presence",
+    "Third-party authentication providers other than Internet Identity",
+    "Push notifications"
+  ],
+  "imageRequirements": {
+    "required": [
+      "App logo mark featuring a stylized falcon/hawk silhouette with clean geometric shapes, warm charcoal + sand color palette (shaheen-logo.dim_512x512.png)",
+      "Wide header/hero banner with subtle pattern and falcon motif, minimalist, warm neutral palette (shaheen-banner.dim_1600x400.png)",
+      "Simple line-art illustration of a chat bubble and falcon feather, warm neutral palette, on transparent background (shaheen-empty-state.dim_800x600.png)"
+    ],
+    "edits": []
+  }
+}

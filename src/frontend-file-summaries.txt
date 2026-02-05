@@ -1,0 +1,19 @@
+{
+  "frontend/src/App.tsx": "Main application component that handles authentication flow, profile setup, and renders either the signed-out screen or the messenger shell based on auth state.",
+  "frontend/src/hooks/useCurrentUser.ts": "React Query hooks for fetching and saving user profiles, with proper loading state handling to prevent modal flash during initialization.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations including conversations, messages, and sending messages with automatic polling for updates.",
+  "frontend/src/components/layout/AppShell.tsx": "Application shell layout component that provides consistent header with logo and branding across all screens.",
+  "frontend/src/components/auth/SignedOutScreen.tsx": "Landing page for unauthenticated users with logo, welcome message, and Internet Identity sign-in button.",
+  "frontend/src/components/auth/ProfileSetupDialog.tsx": "First-time user profile setup dialog that prompts for display name after initial authentication.",
+  "frontend/src/components/auth/UserIdentityBadge.tsx": "User identity dropdown menu showing profile name, shortened principal, and sign-out action.",
+  "frontend/src/components/messenger/MessengerShell.tsx": "Main messenger container managing conversation selection state and coordinating sidebar with message pane.",
+  "frontend/src/components/messenger/ConversationList.tsx": "Left sidebar displaying conversation list with previews, timestamps, and new chat form.",
+  "frontend/src/components/messenger/NewChatForm.tsx": "Expandable form for starting new conversations by entering another user's principal ID.",
+  "frontend/src/components/messenger/MessagePane.tsx": "Right pane container coordinating conversation header, message thread, and composer with auto-scroll.",
+  "frontend/src/components/messenger/ConversationHeader.tsx": "Header bar for active conversation showing conversation info and manual refresh button.",
+  "frontend/src/components/messenger/MessageThread.tsx": "Message list display with different styling for own vs other user messages and timestamps.",
+  "frontend/src/components/messenger/MessageComposer.tsx": "Message input form with textarea, send button, and keyboard shortcuts for sending messages.",
+  "frontend/src/components/messenger/EmptyStates.tsx": "Collection of empty state components for no conversation selected and no messages scenarios with illustrations.",
+  "frontend/src/index.css": "Global styles with warm sand and charcoal OKLCH color palette for both light and dark modes, avoiding blue/purple tones.",
+  "frontend/tailwind.config.js": "Tailwind configuration with extended theme including custom shadows and Inter font family."
+}

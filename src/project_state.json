@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a WhatsApp-like messaging app named Shaheen Messenger, including user sign-in, chat management, and real-time messaging.",
+  "existing_features": [
+    {
+      "id": "feature-implement-internet-identity-sign-in-and-session-handling-so-users-can-authenticate-to-shaheen-messenger-and-the-ui-clearly-reflects-signed-in-vs-signed-out-state-including-a-sign-out-action-use-english-for-all-user-facing-text",
+      "title": "Implement Internet Identity sign-in and session handling so users can authenticate to Shaheen Messenger and the UI clearly reflects signed-in vs signed-out state (including a sign-out action). Use English for all user-facing text.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-conversation-chat-management-allow-a-signed-in-user-to-start-a-new-1-1-chat-by-entering-another-user-s-principal-or-an-app-specific-user-identifier-derived-from-principal-and-show-a-conversation-list-inbox-of-existing-chats-with-last-message-preview-and-last-activity-time",
+      "title": "Implement conversation (chat) management: allow a signed-in user to start a new 1:1 chat by entering another user's principal (or an app-specific user identifier derived from principal), and show a conversation list (inbox) of existing chats with last message preview and last activity time.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-1-1-messaging-in-a-selected-conversation-allow-the-signed-in-user-to-send-text-messages-and-load-message-history-provide-automatic-periodic-refresh-of-the-message-thread-and-conversation-list-since-real-time-sockets-are-not-available-and-a-manual-refresh-control",
+      "title": "Implement 1:1 messaging: in a selected conversation, allow the signed-in user to send text messages and load message history. Provide automatic periodic refresh of the message thread and conversation list (since real-time sockets are not available) and a manual refresh control.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-core-ui-layout-similar-to-a-simple-messenger-left-sidebar-with-conversation-list-new-chat-action-right-pane-with-conversation-header-message-list-and-message-composer-use-react-query-for-fetching-mutations-and-show-loading-empty-error-states-in-english",
+      "title": "Add core UI layout similar to a simple messenger: left sidebar with conversation list + new chat action, right pane with conversation header, message list, and message composer. Use React Query for fetching/mutations and show loading/empty/error states in English.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-coherent-distinctive-visual-theme-for-shaheen-messenger-colors-typography-spacing-component-styling-and-enforce-it-consistently-across-authentication-conversation-list-and-chat-thread-views-do-not-use-a-blue-purple-primary-palette",
+      "title": "Apply a coherent, distinctive visual theme for Shaheen Messenger (colors, typography, spacing, component styling) and enforce it consistently across authentication, conversation list, and chat thread views. Do not use a blue/purple primary palette.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-image-assets-for-shaheen-messenger-and-render-them-in-the-ui-from-frontend-public-assets-generated-including-an-app-logo-and-a-simple-login-empty-state-illustration",
+      "title": "Add generated static image assets for Shaheen Messenger and render them in the UI (from frontend/public/assets/generated), including an app logo and a simple login/empty-state illustration.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create Shaheen Messenger (WhatsApp-like messaging app) core product scope",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "User authentication / sign-in for Shaheen Messenger",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "1:1 messaging (send/receive messages) for Shaheen Messenger",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Chat management (create/view/manage chats & conversation list) for Shaheen Messenger",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Create backend data models and persistent storage for a WhatsApp-like 1:1 messenger: users (keyed by principal), conversations (between exactly two participants), and messages (author, timestamp, text, conversation id).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    }
+  ],
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- App logo mark featuring a stylized falcon/hawk silhouette with clean geometric shapes, warm charcoal + sand color palette (shaheen-logo.dim_512x512.png)\n- Wide header/hero banner with subtle pattern and falcon motif, minimalist, warm neutral palette (shaheen-banner.dim_1600x400.png)\n- Simple line-art illustration of a chat bubble and falcon feather, warm neutral palette, on transparent background (shaheen-empty-state.dim_800x600.png)",
+  "generatedImages": [
+    {
+      "filename": "shaheen-logo.dim_512x512.png",
+      "description": "App logo mark featuring a stylized falcon/hawk silhouette with clean geometric shapes, warm charcoal + sand color palette",
+      "targetWidth": 512,
+      "targetHeight": 512
+    },
+    {
+      "filename": "shaheen-banner.dim_1600x400.png",
+      "description": "Wide header/hero banner with subtle pattern and falcon motif, minimalist, warm neutral palette",
+      "targetWidth": 1600,
+      "targetHeight": 400
+    },
+    {
+      "filename": "shaheen-empty-state.dim_800x600.png",
+      "description": "Simple line-art illustration of a chat bubble and falcon feather, warm neutral palette, on transparent background",
+      "targetWidth": 800,
+      "targetHeight": 600
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Shaheen Messenger",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
